@@ -74,6 +74,18 @@ You can use short aliases instead of full Hugging Face IDs.
 ./script/run --uri tcp://0.0.0.0:10305
 ```
 
+### Docker Usage
+
+If you prefer container deployment, use the provided Docker assets in `docker/`:
+
+```bash
+# GPU mode
+docker compose -f docker/docker-compose.gpu.yml up --build
+
+# CPU mode
+docker compose -f docker/docker-compose.cpu.yml up --build
+```
+
 ---
 
 ## ⚙️ Configuration Options

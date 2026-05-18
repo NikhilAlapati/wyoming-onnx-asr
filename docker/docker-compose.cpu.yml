@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  wyoming-onnx-asr:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        CPU: "1"
+    image: wyoming-onnx-asr:cpu
+    ports:
+      - "10300:10300"
+    environment:
+      - ONNX_AS_MODELS_DIR=/opt/wyoming-onnx-asr/data/models
+    volumes:
+      - ../data/models:/opt/wyoming-onnx-asr/data/models
+    command: ["--model", "parakeet-v3", "--cpu", "--uri", "tcp://0.0.0.0:10300"]

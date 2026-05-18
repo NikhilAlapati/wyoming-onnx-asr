@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  wyoming-onnx-asr:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        CPU: "0"
+    image: wyoming-onnx-asr:gpu
+    ports:
+      - "10300:10300"
+    environment:
+      - ONNX_AS_MODELS_DIR=/opt/wyoming-onnx-asr/data/models
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ../data/models:/opt/wyoming-onnx-asr/data/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    command: ["--model", "parakeet-v3", "--uri", "tcp://0.0.0.0:10300"]
