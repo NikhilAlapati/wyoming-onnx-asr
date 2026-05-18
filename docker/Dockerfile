@@ -5,19 +5,22 @@ ARG CPU=0
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        python3 python3-pip ca-certificates && \
+        python3 python3-venv python3-pip ca-certificates && \
     rm -rf /var/lib/apt/lists/* && \
-    ln -sf /usr/bin/python3 /usr/local/bin/python && \
-    python3 -m pip install --upgrade pip setuptools wheel
+    ln -sf /usr/bin/python3 /usr/local/bin/python
 
 WORKDIR /opt/wyoming-onnx-asr
 COPY . /opt/wyoming-onnx-asr
 
-RUN if [ "${CPU}" = "1" ]; then \
-        python3 -m pip install -r requirements-cpu.txt; \
+RUN python3 -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade pip setuptools wheel && \
+    if [ "${CPU}" = "1" ]; then \
+        /opt/venv/bin/pip install -r requirements-cpu.txt; \
     else \
-        python3 -m pip install -r requirements-gpu.txt; \
+        /opt/venv/bin/pip install -r requirements-gpu.txt; \
     fi
+
+ENV PATH="/opt/venv/bin:$PATH"
 
 ENV PYTHONUNBUFFERED=1
 ENV ONNX_AS_MODELS_DIR=/opt/wyoming-onnx-asr/data/models
