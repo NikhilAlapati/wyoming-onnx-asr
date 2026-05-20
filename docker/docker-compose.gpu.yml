@@ -14,7 +14,7 @@ services:
       - ONNX_AS_MODELS_DIR=/opt/wyoming-onnx-asr/data/models
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ../data/models:/opt/wyoming-onnx-asr/data/models
+      - ../data/models/istupakov/parakeet-tdt-0.6b-v2-onnx/:/opt/wyoming-onnx-asr/data/models
     deploy:
       resources:
         reservations:
@@ -22,4 +22,4 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
-    command: ["--model", "parakeet-v3", "--uri", "tcp://0.0.0.0:10300"]
+    command: ["--model", "parakeet-v2", "--uri", "tcp://0.0.0.0:10300"]
