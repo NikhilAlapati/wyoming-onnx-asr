@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:13.0.1-runtime-ubuntu24.04
+ARG BASE_IMAGE=nvidia/cuda:12.9.0-cudnn-runtime-ubuntu24.04
 FROM ${BASE_IMAGE}
 
 ARG CPU=0

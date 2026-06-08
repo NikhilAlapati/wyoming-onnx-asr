@@ -11,10 +11,9 @@ services:
     ports:
       - "10300:10300"
     environment:
-      - ONNX_AS_MODELS_DIR=/opt/wyoming-onnx-asr/data/models
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ../data/models/istupakov/parakeet-tdt-0.6b-v2-onnx/:/opt/wyoming-onnx-asr/data/models
+      - ../data/models/:/root/.cache/huggingface
     deploy:
       resources:
         reservations:

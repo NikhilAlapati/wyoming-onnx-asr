@@ -10,8 +10,6 @@ services:
     image: wyoming-onnx-asr:cpu
     ports:
       - "10300:10300"
-    environment:
-      - ONNX_AS_MODELS_DIR=/opt/wyoming-onnx-asr/data/models
     volumes:
-      - ../data/models:/opt/wyoming-onnx-asr/data/models
-    command: ["--model", "parakeet-v3", "--cpu", "--uri", "tcp://0.0.0.0:10300"]
+      - ../data/models/:/root/.cache/huggingface
+    command: ["--model", "parakeet-v2", "--cpu", "--uri", "tcp://0.0.0.0:10300"]
